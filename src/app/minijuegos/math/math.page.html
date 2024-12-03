@@ -1,0 +1,23 @@
+<ion-content>
+  <h1>Matemáticas Rápidas</h1>
+  <p>Tiempo restante: {{ timeLeft }}s</p>
+  <p>{{ currentQuestion }}</p>
+
+  <!-- Input para la respuesta del jugador -->
+  <ion-input 
+    type="number" 
+    [(ngModel)]="playerAnswer" 
+    placeholder="Escribe tu respuesta aquí">
+  </ion-input>
+
+  <!-- Botón para comprobar la respuesta -->
+  <ion-button (click)="checkAnswer()">Comprobar</ion-button>
+
+  <p>Puntuación: {{ score }}</p>
+
+  <!-- Mostrar mensaje de fin de juego si el tiempo se acaba -->
+  <div *ngIf="gameOver">
+    <p>¡Juego terminado! Tu puntuación final es: {{ score }}</p>
+    <ion-button (click)="startGame()">Jugar de nuevo</ion-button>
+  </div>
+</ion-content>

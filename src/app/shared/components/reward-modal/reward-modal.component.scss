@@ -1,0 +1,21 @@
+.reward-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: #1a1a1a; 
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    max-width: 300px;
+  }
+  
+  .reward-icon {
+    font-size: 3rem;
+    color: var(--accent-color); 
+    margin-bottom: 15px;
+  }
+  

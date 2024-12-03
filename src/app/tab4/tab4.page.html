@@ -1,0 +1,36 @@
+<ion-content class="profile-content">
+  <div class="profile-container">
+    <div class="avatar">
+      <ion-icon name="person-circle-outline" class="profile-icon"></ion-icon>
+    </div>
+    <div class="profile-info">
+      <ion-label class="username">{{ nombre }}</ion-label>
+      <ion-label class="email">{{ email || "Introduce tu email" }}</ion-label>
+    </div>
+  </div>
+
+  <ion-list class="profile-list">
+    <ion-item>
+      <ion-label position="stacked">Nombre</ion-label>
+      <ion-input [(ngModel)]="nombre" placeholder="Introduce tu nombre"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input [(ngModel)]="email" placeholder="Introduce tu email"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label>Tiradas Disponibles</ion-label>
+      <ion-note slot="end">{{ spinsLeft }}</ion-note>
+    </ion-item>
+  </ion-list>
+
+  <div class="update-button-container">
+    <!-- <ion-button expand="block" (click)="updateProfile()">Actualizar Perfil</ion-button> -->
+  </div>
+
+  <div *ngIf="updateMessage" class="update-message">
+    {{ updateMessage }}
+  </div>
+</ion-content>

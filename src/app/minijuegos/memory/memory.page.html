@@ -1,0 +1,19 @@
+<ion-content>
+  <h1>Juego de Memoria</h1>
+  <p *ngIf="isShowingSequence">Observa la secuencia...</p>
+  <p *ngIf="!isShowingSequence">Tu turno: toca los colores en el orden correcto</p>
+
+  <div class="color-buttons">
+    <button *ngFor="let color of colors"
+            [ngStyle]="{'background-color': color}"
+            [disabled]="isShowingSequence"
+            (click)="onColorClick(color)">
+    </button>
+  </div>
+
+  <div *ngIf="gameOver">
+    <p>¡Juego Terminado!</p>
+    <p>Puntuación: {{ score }}</p>
+    <ion-button (click)="startGame()">Reiniciar Juego</ion-button>
+  </div>
+</ion-content>

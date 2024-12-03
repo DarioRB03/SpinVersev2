@@ -1,0 +1,32 @@
+<ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Quiz</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="quiz-container" *ngIf="currentQuestion < questions.length; else quizEnd">
+    <h2>{{ questions[currentQuestion].question }}</h2>
+
+    <ion-list>
+      <ion-item *ngFor="let option of questions[currentQuestion].options" (click)="selectOption(option)">
+        <ion-label>{{ option.text }}</ion-label>
+      </ion-item>
+    </ion-list>
+
+    <div *ngIf="showAnswer">
+      <p [ngClass]="{'correct': isCorrect, 'incorrect': !isCorrect}">
+        {{ isCorrect ? '¡Correcto!' : 'Incorrecto' }}
+      </p>
+      <ion-button (click)="nextQuestion()">Siguiente</ion-button>
+    </div>
+  </div>
+
+  <ng-template #quizEnd>
+    <div class="quiz-end">
+      <h2>¡Quiz Terminado!</h2>
+      <p>Puntaje: {{ score }}/{{ questions.length }}</p>
+      <ion-button (click)="restartQuiz()">Reiniciar Quiz</ion-button>
+    </div>
+  </ng-template>
+</ion-content>

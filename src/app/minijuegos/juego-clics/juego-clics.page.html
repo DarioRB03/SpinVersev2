@@ -1,0 +1,16 @@
+<ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Juego de Clics</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="game-container">
+    <h2>Haz clic lo más rápido que puedas en 10 segundos!</h2>
+    <h3>Clics: {{ clickCount }}</h3>
+    <ion-button expand="block" (click)="countClick()">¡Clic!</ion-button>
+    <ion-button expand="block" (click)="startGame()">Empezar</ion-button>
+    <h4 *ngIf="timer > 0">Tiempo restante: {{ timer }} segundos</h4>
+  </div>
+</ion-content>
+

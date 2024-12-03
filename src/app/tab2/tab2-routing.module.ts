@@ -6,6 +6,26 @@ const routes: Routes = [
   {
     path: '',
     component: Tab2Page,
+  },
+  {
+    path: 'juego-clics',
+    loadChildren: () => import('../minijuegos/juego-clics/juego-clics.module').then(m => m.JuegoClicsPageModule)
+  },
+  {
+    path: 'quiz',
+    loadChildren: () => import('../minijuegos/quiz/quiz.module').then(m => m.QuizPageModule)
+  },
+  {
+    path: 'math',
+    loadChildren: () => import('../minijuegos/math/math.module').then(m => m.MathPageModule)
+  },
+  {
+    path: 'memory',
+    loadChildren: () => import('../minijuegos/memory/memory.module').then(m => m.MemoryPageModule)
+  },
+  {
+    path: 'tap',
+    loadChildren: () => import('../minijuegos/tap/tap.module').then(m => m.TapPageModule)
   }
 ];
 

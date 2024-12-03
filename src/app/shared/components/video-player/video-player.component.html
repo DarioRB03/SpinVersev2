@@ -1,0 +1,15 @@
+<ion-content class="video-player-content" fullscreen>
+  <div class="video-container">
+    <iframe
+      [src]="videoUrl"
+      frameborder="0"
+      allowfullscreen
+      allow="autoplay"
+    ></iframe>
+
+   
+    <ion-button (click)="closePlayer()" fill="clear" class="close-button">
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+  </div>
+</ion-content>
