@@ -22,7 +22,6 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
-    
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi())

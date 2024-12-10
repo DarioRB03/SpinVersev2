@@ -26,7 +26,12 @@ const routes: Routes = [
   {
     path: 'tap',
     loadChildren: () => import('../minijuegos/tap/tap.module').then(m => m.TapPageModule)
-  }
+  },
+  {
+    path: 'puzzle-game',
+    loadChildren: () => import('../minijuegos/puzzle-game/puzzle-game.module').then( m => m.PuzzleGamePageModule)
+  },
+  
 ];
 
 @NgModule({

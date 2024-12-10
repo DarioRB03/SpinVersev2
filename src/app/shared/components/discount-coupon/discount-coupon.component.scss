@@ -1,0 +1,85 @@
+.coupon-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; /* Espaciado entre elementos */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 400px;
+  height: auto;
+  padding: 20px;
+  background-color: #1a1a1a;
+  border-radius: 25px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+}
+
+/* Contenedor del icono giratorio */
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  background-color: #4caf50;
+  border-radius: 50%;
+  margin-top: -50px; /* Subir el círculo ligeramente */
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  z-index: 10;
+}
+
+.rotating-icon {
+  font-size: 3rem;
+  color: #fff;
+  animation: rotate 2s linear infinite; /* Animación de rotación */
+}
+
+/* Animación de rotación */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.coupon-content {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.coupon-content h2 {
+  font-size: 1.8rem;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.coupon-details h3 {
+  font-size: 1.5rem;
+  color: #fff;
+  margin: 10px 0;
+}
+
+.coupon-details p {
+  margin: 5px 0;
+  color: #ccc;
+}
+
+.coupon-details p strong {
+  color: #4caf50;
+}
+
+.coupon-code {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4caf50;
+  margin: 10px 0;
+}
+
+.close-button {
+  margin-top: 20px;
+}

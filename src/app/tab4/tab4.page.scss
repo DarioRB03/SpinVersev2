@@ -1,46 +1,95 @@
 .profile-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .avatar {
-    font-size: 100px;
-    color: var(--ion-color-medium);
-    margin-bottom: 10px;
-  }
-  
-  .profile-info {
-    text-align: center;
-  }
-  
-  .username,
-  .email {
-    font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #000; /* Fondo negro */
+  color: #fff;
+}
+
+.avatar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at center, #1a1a1a, transparent 70%);
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 15px; /* Centrado horizontal y espaciado abajo */
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); /* Sombra ligera */
+}
+
+.avatar {
+  font-size: 100px;
+  color: #ffd600; /* Amarillo */
+}
+
+.profile-info {
+  text-align: center;
+  margin-bottom: 20px;
+
+  .username {
+    font-size: 1.4rem;
     font-weight: bold;
-    color: var(--ion-color-light);
+    color: #4caf50; /* Verde */
   }
-  
-  .profile-list {
-    width: 100%;
+
+  .email {
+    font-size: 1rem;
+    color: #ccc; /* Gris claro */
   }
-  
-  .update-button-container {
-    padding: 10px 20px;
+}
+
+.profile-list {
+  width: 100%;
+  max-width: 500px;
+  background-color: #1a1a1a;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  padding: 15px;
+
+  ion-item {
+    --background: transparent;
+    --color: #fff;
+    margin-bottom: 15px;
+
+    ion-label {
+      color: #ffd600; /* Amarillo */
+    }
+
+    ion-input {
+      color: #fff;
+      font-size: 1rem;
+    }
   }
-  
-  .update-message {
-    margin-top: 15px;
-    text-align: center;
-    font-size: 16px;
-    color: var(--ion-color-success);
+
+  .spins-info ion-label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ffd600;
   }
-  
+
+  .spins-info ion-note {
+    font-size: 1rem;
+    color: #4caf50; /* Verde */
+  }
+}
+
+.update-button-container {
+  width: 100%;
+  max-width: 500px;
+  margin-top: 20px;
+
+  ion-button {
+    --background: #4caf50; /* Verde */
+    --color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 255, 0, 0.3);
+  }
+}
+
+.update-message {
+  margin-top: 20px;
+  font-size: 1rem;
+  text-align: center;
+  color: #4caf50; /* Verde */
+}

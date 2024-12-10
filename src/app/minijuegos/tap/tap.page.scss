@@ -1,22 +1,42 @@
-.tap-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    color: white;
-    background-color: #000;
-  
-    h1 {
-      margin-bottom: 16px;
-    }
-  
-    .target {
-      width: 50px;
-      height: 50px;
-      background-color: #ff4081; 
-      border-radius: 50%;
-      position: absolute;
-    }
-  }
-  
+.game-container {
+  text-align: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Centrado vertical */
+}
+
+.timer {
+  margin: 10px 0;
+  font-size: 1.2rem;
+  color: #4caf50;
+}
+
+.tap-game-board {
+  position: relative;
+  width: 90%;
+  height: 300px;
+  background-color: #1a1a1a;
+  margin: 20px auto;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  overflow: hidden; /* Asegura que el objetivo no se salga */
+}
+
+.target {
+  width: 50px;
+  height: 50px;
+  background-color: #ff4081;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.game-over {
+  margin-top: 20px;
+}
+
+ion-button {
+  margin-top: 20px;
+}

@@ -1,3 +1,63 @@
-.puntero {
+ion-grid {
+    padding: 10px;
+  }
+  
+  ion-row {
+    justify-content: center;
+  }
+  
+  ion-col {
+    padding: 10px;
+  }
+  
+  .game-card {
+    text-align: center;
+    background-color: #1a1a1a;
+    border-radius: 15px;
+    color: #ffffff; /* Texto blanco */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     cursor: pointer;
-}
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: auto; /* Altura adaptable al contenido */
+    min-height: 200px; /* Altura mínima */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Alinear contenido al inicio */
+    padding: 10px;
+  
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+    }
+  
+    ion-card-title {
+      font-size: 1.1rem;
+      margin: 10px 0; /* Espaciado uniforme */
+      color: #00ff6a;
+    }
+  
+    ion-card-content p {
+      font-size: 0.9rem;
+      color: #ccc;
+      margin: 5px 0;
+      text-align: center;
+    }
+  
+    .game-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-size: 2.5rem;
+      color: #ffdd00; /* Amarillo suave */
+      background-color: rgba(255, 221, 0, 0.2);
+      box-shadow: 0 4px 10px rgba(255, 221, 0, 0.3);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+     
+    }
+  }
+  

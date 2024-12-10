@@ -1,15 +1,47 @@
-<ion-content>
+<ion-content scroll-y="false">
   <div class="roulette-container">
-    <div [class.spinning]="isSpinning" class="icon-container" (click)="girarRuleta()">
+    <div
+      [class.spinning]="isSpinning"
+      class="icon-container"
+      (click)="girarRuleta()"
+      [class.disabled]="isRouletteDisabled()"
+    >
       <ion-icon [name]="currentIcon" class="roulette-icon"></ion-icon>
     </div>
+    <p class="spins-counter">Tiradas restantes: {{ spinsLeft }}</p>
+    <p *ngIf="spinsLeft === 0" class="no-spins-message">
+      No tienes tiradas disponibles. ¡Vuelve más tarde!
+    </p>
   </div>
 
-  <!-- Modal de recompensa -->
-  <app-reward-modal
-    *ngIf="showRewardModal"
-    [rewardIcon]="rewardIcon"
-    [rewardName]="rewardName"
-    (close)="closeRewardModal()">
-  </app-reward-modal>
+
+  <!-- Mostrar ExtraSpin -->
+  <app-extra-spin
+  *ngIf="showExtraSpin"
+  (close)="closeExtraSpin()"
+></app-extra-spin>
+
+ <app-coin-reward
+  *ngIf="showCoinReward"
+  [coinsAwarded]="rewardCoins"
+  (close)="closeCoinReward()"
+></app-coin-reward>
+
+<app-profile-frame-reward
+  *ngIf="showProfileFrameReward"
+  [frameImage]="rewardFrameImage"
+  (close)="closeProfileFrameReward()"
+></app-profile-frame-reward>
+
+<!-- Componente de la galletita -->
+<app-fortune-cookie
+  *ngIf="showFortuneCookie"
+  [message]="rewardText"
+  (close)="closeFortuneCookie()"
+></app-fortune-cookie>
+
+<app-discount-coupon *ngIf="showCouponReward" (close)="closeCouponReward()"></app-discount-coupon>
+
+
+
 </ion-content>

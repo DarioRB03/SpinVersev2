@@ -1,0 +1,27 @@
+<ion-content class="register-page">
+  <div class="form-container">
+    <div class="header">
+      <h1>Registro</h1>
+    </div>
+    <form (ngSubmit)="register()">
+      <div class="input-container">
+        <ion-label>Nombre de usuario</ion-label>
+        <ion-input [(ngModel)]="username" name="username" required></ion-input>
+      </div>
+      <div class="input-container">
+        <ion-label>Correo Electrónico</ion-label>
+        <ion-input [(ngModel)]="email" name="email" type="email" required></ion-input>
+      </div>
+      <div class="input-container">
+        <ion-label>Contraseña</ion-label>
+        <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
+      </div>
+      <ion-button expand="full" class="register-button" type="submit">
+        Registrarse
+      </ion-button>
+    </form>
+    <p class="login-text">
+      ¿Ya tienes cuenta? <a class="login-link" routerLink="/login">Inicia sesión aquí</a>
+    </p>
+  </div>
+</ion-content>

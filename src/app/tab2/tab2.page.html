@@ -1,12 +1,19 @@
 <ion-content>
-
-  <ion-list>
-    <ion-card class="puntero" *ngFor="let minijuego of minijuegos" (click)="openMinijuego(minijuego)">
-      <ion-card-header>
-        <ion-icon [name]="minijuego.icono" slot="start"></ion-icon>
-        <ion-card-title>{{ minijuego.nombre }}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>{{ minijuego.descripcion }}</ion-card-content>
-    </ion-card>
-  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let minijuego of minijuegos">
+        <ion-card class="game-card" (click)="openMinijuego(minijuego)">
+          <div class="game-icon">
+            <ion-icon [name]="minijuego.icono"></ion-icon>
+          </div>
+          <ion-card-header>
+            <ion-card-title>{{ minijuego.nombre }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p>{{ minijuego.descripcion }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

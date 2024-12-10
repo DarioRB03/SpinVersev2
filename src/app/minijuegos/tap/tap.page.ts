@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-tap',
@@ -6,6 +6,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
   styleUrls: ['./tap.page.scss']
 })
 export class TapPage implements OnInit, OnDestroy {
+  @ViewChild('tapContainer', { static: false }) tapContainer!: ElementRef;
+
   gameStarted: boolean = false;
   gameOver: boolean = false;
   score: number = 0;
@@ -14,9 +16,8 @@ export class TapPage implements OnInit, OnDestroy {
   timeoutId: any;
   countdownInterval: any;
 
-
-  timeLeft: number = 30; 
-  targetDelay: number = 1200; 
+  timeLeft: number = 30;
+  targetDelay: number = 1200;
 
   ngOnInit() {}
 
@@ -32,7 +33,6 @@ export class TapPage implements OnInit, OnDestroy {
     this.timeLeft = 30;
     this.targetDelay = 1200;
 
-
     this.countdownInterval = setInterval(() => {
       this.timeLeft -= 1;
       if (this.timeLeft <= 0) {
@@ -46,40 +46,39 @@ export class TapPage implements OnInit, OnDestroy {
   nextTarget() {
     this.showTarget = false;
 
-  
     this.timeoutId = setTimeout(() => {
       this.positionTarget();
       this.showTarget = true;
 
-    
       setTimeout(() => {
         if (this.showTarget) {
           this.showTarget = false;
-          this.nextTarget(); 
+          this.nextTarget();
         }
       }, this.targetDelay);
 
-      
       if (this.targetDelay > 300) {
-        this.targetDelay -= 50; // Hace que aparezca más rápido en cada turno
+        this.targetDelay -= 50;
       }
     }, this.targetDelay);
   }
 
   positionTarget() {
-    const container = document.querySelector('.tap-container') as HTMLElement;
-    const maxX = container.offsetWidth - 50; 
-    const maxY = container.offsetHeight - 50;
+    if (this.tapContainer && this.tapContainer.nativeElement) {
+      const container = this.tapContainer.nativeElement.getBoundingClientRect();
+      const maxX = container.width - 50; // Tamaño del objetivo
+      const maxY = container.height - 50;
 
-    this.targetPosition.x = Math.floor(Math.random() * maxX);
-    this.targetPosition.y = Math.floor(Math.random() * maxY);
+      this.targetPosition.x = Math.floor(Math.random() * maxX);
+      this.targetPosition.y = Math.floor(Math.random() * maxY);
+    }
   }
 
   hitTarget() {
     if (this.showTarget) {
       this.score += 1;
       this.showTarget = false;
-      this.nextTarget(); 
+      this.nextTarget();
     }
   }
 

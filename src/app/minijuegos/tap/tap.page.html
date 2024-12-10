@@ -1,24 +1,29 @@
-<ion-content>
-  <div class="tap-container">
-    <h1>Juego de Tap</h1>
-    <p *ngIf="!gameStarted && !gameOver">Toca el objetivo lo más rápido que puedas cuando aparezca</p>
-    <ion-button *ngIf="!gameStarted && !gameOver" (click)="startGame()" color="primary">INICIAR JUEGO</ion-button>
-    
-    <p *ngIf="gameStarted">Puntaje: {{ score }}</p>
-    <p *ngIf="gameStarted">Tiempo restante: {{ timeLeft }}s</p>
-    
-    <div
-      class="target"
-      *ngIf="showTarget"
-      [style.top.px]="targetPosition.y"
-      [style.left.px]="targetPosition.x"
-      (click)="hitTarget()"
-    ></div>
+<ion-content scroll-y="false">
+  <div class="game-container">
+    <h2>Juego de Tap</h2>
+    <p>Toca el objetivo lo más rápido que puedas cuando aparezca.</p>
+    <div class="timer">Tiempo restante: {{ timeLeft }} segundos</div>
 
-    <div *ngIf="gameOver" class="game-over">
+    <div class="tap-game-board" #tapContainer>
+      <div
+        class="target"
+        *ngIf="showTarget"
+        [style.top.px]="targetPosition.y"
+        [style.left.px]="targetPosition.x"
+        (click)="hitTarget()"
+      ></div>
+    </div>
+
+    <div class="game-over" *ngIf="gameOver">
       <h2>¡Tiempo terminado!</h2>
       <p>Puntaje final: {{ score }}</p>
-      <ion-button (click)="resetGame()" color="secondary">Reiniciar Juego</ion-button>
+      <ion-button expand="full" color="primary" (click)="resetGame()">
+        Reiniciar Juego
+      </ion-button>
     </div>
+
+    <ion-button *ngIf="!gameStarted && !gameOver" expand="full" color="success" (click)="startGame()">
+      INICIAR JUEGO
+    </ion-button>
   </div>
 </ion-content>

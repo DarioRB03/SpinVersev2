@@ -1,0 +1,12 @@
+<ion-content>
+  <div class="user-coins-container">
+    <p>Monedas actuales: <span class="user-coins">{{ userCoins }}</span></p>
+  </div>
+
+  <div class="store-container">
+    <app-store-item
+      *ngFor="let item of storeItems"
+      [item]="item"
+    ></app-store-item>
+  </div>
+</ion-content>

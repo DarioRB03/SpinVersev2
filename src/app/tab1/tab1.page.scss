@@ -1,6 +1,5 @@
 ion-content {
-    --background: var(--ion-background-color); 
-    color: var(--ion-text-color); 
+  color: #ffffff;
   }
   
   .roulette-container {
@@ -31,22 +30,30 @@ ion-content {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    background: radial-gradient(circle, #1c1c1c, #000); 
-    color: var(--accent-color); 
+    background: radial-gradient(circle, #1a1a1a, #000000);  
+    color: #ffdd00; /* Amarillo suave */
+    box-shadow: 0 0 30px rgba(255, 221, 0, 0.4), inset 0 0 15px rgba(0, 0, 0, 0.5); 
     font-size: 5rem;
     margin-bottom: 20px;
-    box-shadow: 
-      0 0 30px rgba(255, 0, 128, 0.4), 
-      inset 0 0 15px rgba(0, 0, 0, 0.5); 
     cursor: pointer;
     position: relative;
     transition: transform 0.5s ease-out;
+
+    &.disabled{
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  .no-spins-message {
+    text-align: center;
+    color: var(--ion-color-danger);
+    margin-top: 20px;
+    font-size: 1.2rem;
   }
   
   .icon-container:hover {
-    box-shadow: 
-      0 0 40px rgba(255, 0, 128, 0.6),
-      inset 0 0 15px rgba(0, 0, 0, 0.5); 
+    box-shadow: 0 0 40px rgba(255, 221, 0, 0.6), inset 0 0 15px rgba(0, 0, 0, 0.5);
     transform: scale(1.05); 
   }
   
@@ -93,37 +100,11 @@ ion-content {
     }
   }
   
-  
-  ion-button {
-    --background: var(--primary-color);
-    --color: #ffffff;
-    border-radius: 20px;
-    width: 150px;
-    transition: transform 0.1s;
-  }
-  
-  ion-button:active {
-    transform: scale(0.95);
-  }
-  
-  
-  .reward-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    text-align: center;
-  }
-  
-  .reward-icon {
-    font-size: 5rem;
-    color: var(--accent-color);
-    margin-bottom: 1rem;
-  }
+
   .spins-counter {
     text-align: center;
-    color: var(--warning-color);
+    color: #00ff6a;
     margin-top: 20px;
+    font-size: 1.2rem;
   }
   

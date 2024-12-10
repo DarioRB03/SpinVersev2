@@ -1,0 +1,20 @@
+<ion-content scroll-y="false">
+  <div class="profile-frame-card">
+    <!-- Contenedor del icono giratorio -->
+    <div class="icon-container">
+      <ion-icon class="rotating-icon" name="person-circle-outline"></ion-icon>
+    </div>
+
+    <!-- Contenido de la recompensa -->
+    <div class="profile-frame-content">
+      <h2>¡Felicidades!</h2>
+      <p>Has ganado un nuevo marco para tu perfil.</p>
+      <img [src]="frameImage" alt="Marco ganado" class="frame-image" />
+    </div>
+
+    <!-- Botón de cerrar -->
+    <ion-button expand="full" color="primary" class="close-button" (click)="closeProfileFrameReward()">
+      ¡Aceptar!
+    </ion-button>
+  </div>
+</ion-content>

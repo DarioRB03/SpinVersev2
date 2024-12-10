@@ -1,36 +1,104 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { map } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FirestoreService {
   constructor(private firestore: AngularFirestore) {}
 
-  // Obtener las tiradas restantes del usuario
-  getUserSpins(userId: string): Observable<number> {
-    return this.firestore
-      .collection('users')
-      .doc(userId)
-      .valueChanges() as Observable<number>;
-  }
-
-  saveReward(userId: string, reward: { name: string; icon: string }) {
-    return this.firestore.collection('users').doc(userId).collection('rewards').add(reward);
-  }
-
-  updateUserSpins(userId: string, spins: number) {
-    return this.firestore.collection('users').doc(userId).update({ spins });
-  }
-
-
-  getUser(userId: string): Observable<any> {
-    return this.firestore.collection('users').doc(userId).valueChanges();
+  createUser(userId: string, username: string, email: string) {
+    const initialData = {
+      username: username,
+      email: email,
+      spins: 3,
+      coins: 1,
+    };
+    return this.firestore.collection('users').doc(userId).set(initialData);
   }
   
-  updateUserProfile(nombre: string, email: string) {
-    const userId = 'user123'; 
-    return this.firestore.collection('users').doc(userId).update({ nombre, email });
+
+  getUserData(userId: string) {
+    return this.firestore.collection('users').doc(userId).valueChanges();
   }
+
+  updateUserSpins(userId: string, spinsLeft: number) {
+    const userDocRef = this.firestore.collection('users').doc(userId);
+  
+    return userDocRef
+      .get()
+      .toPromise()
+      .then((doc) => {
+        if (doc && doc.exists) {
+          console.log(`Actualizando tiradas restantes en Firestore: ${spinsLeft}`);
+          return userDocRef.update({ spins: spinsLeft });
+        } else {
+          console.log(`Documento no existe. Creando con ${spinsLeft} tiradas.`);
+          return userDocRef.set({ spins: spinsLeft });
+        }
+      })
+      .catch((error) => {
+        console.error('Error actualizando tiradas:', error);
+      });
+  }
+  
+
+  getStoreItems() {
+    return this.firestore.collection('store').valueChanges(); // Obtener todos los artículos de la tienda
+  }
+
+  getRandomCoupon() {
+    return this.firestore.collection('coupons').valueChanges().pipe(
+      map((coupons: any[]) => {
+        if (coupons && coupons.length > 0) {
+          const randomIndex = Math.floor(Math.random() * coupons.length);
+          return coupons[randomIndex]; // Retorna un cupón aleatorio
+        } else {
+          return null; // Si no hay cupones disponibles
+        }
+      })
+    );
+  }
+
+  getUserEmailByUsername(username: string): Promise<string | null> {
+    return this.firestore
+      .collection('users', (ref) => ref.where('username', '==', username))
+      .get()
+      .toPromise()
+      .then((querySnapshot) => {
+        if (!querySnapshot || querySnapshot.empty) {
+          console.error('No se encontró ningún usuario con ese nombre.');
+          return null; // Nombre de usuario no encontrado
+        }
+        const userData = querySnapshot.docs[0].data() as any;
+        return userData?.email || null; // Retorna el correo asociado
+      })
+      .catch((error) => {
+        console.error('Error buscando el email por username:', error);
+        return null;
+      });
+  }
+  
+
+
+  updateUserCoins(userId: string, coinsToAdd: number) {
+    const userDocRef = this.firestore.collection('users').doc(userId);
+  
+    return userDocRef
+      .get()
+      .toPromise()
+      .then((doc) => {
+        if (doc && doc.exists) {
+          const userData = doc.data() as { coins?: number }; // Especificar el tipo esperado
+          const currentCoins = userData?.coins || 0;
+          return userDocRef.update({ coins: currentCoins + coinsToAdd });
+        } else {
+          // Si no existe el documento, crearlo con las monedas iniciales
+          return userDocRef.set({ coins: coinsToAdd });
+        }
+      });
+  }
+  
+  
 }

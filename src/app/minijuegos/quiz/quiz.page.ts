@@ -1,69 +1,163 @@
-import { Component } from '@angular/core';
-
-interface Question {
-  question: string;
-  options: { text: string; isCorrect: boolean }[];
-}
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.page.html',
-  styleUrls: ['./quiz.page.scss']
+  styleUrls: ['./quiz.page.scss'],
 })
-export class QuizPage {
-  questions: Question[] = [
+export class QuizPage implements OnInit, OnDestroy {
+  questions = [
     {
       question: '¿Cuál es la capital de Francia?',
       options: [
-        { text: 'Madrid', isCorrect: false },
-        { text: 'París', isCorrect: true },
-        { text: 'Roma', isCorrect: false },
-        { text: 'Berlín', isCorrect: false }
-      ]
+        { text: 'Madrid', correct: false },
+        { text: 'París', correct: true },
+        { text: 'Roma', correct: false },
+        { text: 'Berlín', correct: false },
+      ],
+    },
+    {
+      question: '¿Quién escribió "Cien años de soledad"?',
+      options: [
+        { text: 'Pablo Neruda', correct: false },
+        { text: 'Gabriel García Márquez', correct: true },
+        { text: 'Mario Vargas Llosa', correct: false },
+        { text: 'Isabel Allende', correct: false },
+      ],
     },
     {
       question: '¿Cuál es el planeta más grande del sistema solar?',
       options: [
-        { text: 'Marte', isCorrect: false },
-        { text: 'Júpiter', isCorrect: true },
-        { text: 'Saturno', isCorrect: false },
-        { text: 'Tierra', isCorrect: false }
-      ]
+        { text: 'Júpiter', correct: true },
+        { text: 'Saturno', correct: false },
+        { text: 'Marte', correct: false },
+        { text: 'Tierra', correct: false },
+      ],
     },
     {
-      question: '¿Cuántos colores tiene el arco iris?',
+      question: '¿En qué año llegó el hombre a la Luna?',
       options: [
-        { text: '5', isCorrect: false },
-        { text: '7', isCorrect: true },
-        { text: '8', isCorrect: false },
-        { text: '6', isCorrect: false }
-      ]
-    }
+        { text: '1965', correct: false },
+        { text: '1969', correct: true },
+        { text: '1971', correct: false },
+        { text: '1963', correct: false },
+      ],
+    },
+    {
+      question: '¿Quién pintó la Mona Lisa?',
+      options: [
+        { text: 'Vincent van Gogh', correct: false },
+        { text: 'Leonardo da Vinci', correct: true },
+        { text: 'Pablo Picasso', correct: false },
+        { text: 'Claude Monet', correct: false },
+      ],
+    },
+    {
+      question: '¿Qué gas se encuentra en mayor cantidad en la atmósfera?',
+      options: [
+        { text: 'Oxígeno', correct: false },
+        { text: 'Nitrógeno', correct: true },
+        { text: 'Dióxido de carbono', correct: false },
+        { text: 'Hidrógeno', correct: false },
+      ],
+    },
+    {
+      question: '¿Cuál es el metal más ligero?',
+      options: [
+        { text: 'Hierro', correct: false },
+        { text: 'Aluminio', correct: false },
+        { text: 'Litio', correct: true },
+        { text: 'Cobre', correct: false },
+      ],
+    },
+    {
+      question: '¿Cuál es la moneda de Japón?',
+      options: [
+        { text: 'Dólar', correct: false },
+        { text: 'Yuan', correct: false },
+        { text: 'Yen', correct: true },
+        { text: 'Won', correct: false },
+      ],
+    },
+    {
+      question: '¿Cuál es el país más grande del mundo?',
+      options: [
+        { text: 'China', correct: false },
+        { text: 'Canadá', correct: false },
+        { text: 'Rusia', correct: true },
+        { text: 'Estados Unidos', correct: false },
+      ],
+    },
+    {
+      question: '¿Quién fue el primer presidente de los Estados Unidos?',
+      options: [
+        { text: 'Abraham Lincoln', correct: false },
+        { text: 'George Washington', correct: true },
+        { text: 'Thomas Jefferson', correct: false },
+        { text: 'John Adams', correct: false },
+      ],
+    },
   ];
 
-  currentQuestion: number = 0;
-  score: number = 0;
-  showAnswer: boolean = false;
-  isCorrect: boolean = false;
+  currentQuestion = 0;
+  score = 0;
+  showAnswer = false;
+  isCorrect = false;
+  selectedOption: any = null;
+  timeLeft = 10;
+  timerInterval: any;
+  quizFinished = false;
 
-  selectOption(option: { text: string; isCorrect: boolean }) {
-    if (!this.showAnswer) {
-      this.showAnswer = true;
-      this.isCorrect = option.isCorrect;
-      if (this.isCorrect) {
-        this.score++;
+  ngOnInit() {
+    this.startTimer();
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.timerInterval);
+  }
+
+  startTimer() {
+    this.timerInterval = setInterval(() => {
+      this.timeLeft--;
+      if (this.timeLeft === 0) {
+        this.nextQuestion();
       }
+    }, 1000);
+  }
+
+  selectOption(option: any) {
+    if (this.showAnswer) return;
+    this.selectedOption = option;
+    this.isCorrect = option.correct;
+    this.showAnswer = true;
+
+    if (this.isCorrect) {
+      this.score++;
     }
   }
 
   nextQuestion() {
     this.showAnswer = false;
-    this.currentQuestion++;
+    this.selectedOption = null;
+    this.isCorrect = false;
+
+    if (this.currentQuestion < this.questions.length - 1) {
+      this.currentQuestion++;
+      this.timeLeft = 10; // Reiniciar el tiempo
+    } else {
+      clearInterval(this.timerInterval);
+      this.quizFinished = true;
+    }
   }
 
   restartQuiz() {
     this.currentQuestion = 0;
     this.score = 0;
     this.showAnswer = false;
+    this.isCorrect = false;
+    this.selectedOption = null;
+    this.timeLeft = 10;
+    this.quizFinished = false;
+    this.startTimer();
   }
 }

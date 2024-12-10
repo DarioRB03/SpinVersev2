@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class JuegoClicsPage {
   clickCount: number = 0;
   timer: number = 10;
+  gameStarted: boolean = false;
   intervalId: any;
 
   countClick() {
@@ -19,12 +20,13 @@ export class JuegoClicsPage {
   startGame() {
     this.clickCount = 0;
     this.timer = 10;
+    this.gameStarted = true;
 
     this.intervalId = setInterval(() => {
       this.timer--;
       if (this.timer === 0) {
         clearInterval(this.intervalId);
-        alert(`Juego terminado! Total de clics: ${this.clickCount}`);
+        this.gameStarted = false;
       }
     }, 1000);
   }

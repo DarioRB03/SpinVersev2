@@ -16,7 +16,7 @@ export class MathPage implements OnInit {
   timer: any;
 
   ngOnInit() {
-    this.startGame(); 
+    this.startGame();
   }
 
   startGame() {
@@ -58,10 +58,9 @@ export class MathPage implements OnInit {
   checkAnswer() {
     if (this.playerAnswer === this.correctAnswer) {
       this.score++;
-      this.playerAnswer = null; 
-      this.nextQuestion();
-    } else {
-      this.playerAnswer = null; 
     }
+    // Reinicia el input y pasa a la siguiente pregunta, sin importar si es correcto o no
+    this.playerAnswer = null;
+    this.nextQuestion();
   }
 }

@@ -1,0 +1,24 @@
+<ion-content scroll-y="false">
+  <div class="coupon-card" *ngIf="coupon">
+    <!-- Contenedor del icono giratorio -->
+    <div class="icon-container">
+      <ion-icon class="rotating-icon" name="gift-outline"></ion-icon>
+    </div>
+
+    <!-- Contenido del cupón -->
+    <div class="coupon-content">
+      <h2>{{ coupon.companyName }}</h2>
+      <div class="coupon-details">
+        <h3>{{ coupon.name }}</h3>
+        <p>{{ coupon.description }}</p>
+        <p><strong>Código:</strong> <span class="coupon-code">{{ coupon.code }}</span></p>
+        <p><strong>Válido hasta:</strong> {{ coupon.expirationDate }}</p>
+      </div>
+    </div>
+
+    <!-- Botón de cerrar -->
+    <ion-button expand="full" color="danger" class="close-button" (click)="closeCoupon()">
+      Cerrar
+    </ion-button>
+  </div>
+</ion-content>

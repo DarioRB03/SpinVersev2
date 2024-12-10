@@ -1,0 +1,55 @@
+.game-container {
+    text-align: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Centrado vertical */
+    padding: 20px;
+  }
+  
+  .counter-display {
+    margin: 20px 0;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    max-width: 300px;
+    color: #4caf50;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  }
+  
+  .timer {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    color: #4caf50;
+  }
+  
+  ion-button {
+    margin-top: 15px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease-in-out;
+  
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    }
+  
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+  
+  .game-over {
+    margin-top: 20px;
+    text-align: center;
+    background-color: #1a1a1a;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  

@@ -1,0 +1,53 @@
+.videos-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .video-card {
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #1a1a1a; /* Fondo oscuro */
+    box-shadow: 0 6px 15px rgba(255, 223, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.9);
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease;
+  
+    &:hover {
+        transform: scale(1.02); /* Ligero zoom al hover */
+        box-shadow: 0 6px 15px rgba(255, 223, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.9);
+    }
+  }
+  
+  .video-thumbnail {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+  }
+  
+  .video-info {
+    padding: 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .video-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    margin: 0;
+  }
+  
+  .video-description {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-top: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  

@@ -1,32 +1,33 @@
-<ion-content>
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Quiz</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content scroll-y="false">
+  <div class="game-container">
+    <h2>Quiz</h2>
+    <p>Pregunta {{ currentQuestion + 1 }} de {{ questions.length }}</p>
+    <div class="timer">Tiempo restante: {{ timeLeft }} segundos</div>
+    <p>{{ questions[currentQuestion]?.question }}</p>
 
-  <div class="quiz-container" *ngIf="currentQuestion < questions.length; else quizEnd">
-    <h2>{{ questions[currentQuestion].question }}</h2>
-
-    <ion-list>
-      <ion-item *ngFor="let option of questions[currentQuestion].options" (click)="selectOption(option)">
-        <ion-label>{{ option.text }}</ion-label>
-      </ion-item>
-    </ion-list>
+    <div class="quiz-options">
+      <button
+        *ngFor="let option of questions[currentQuestion]?.options"
+        [disabled]="showAnswer"
+        [class.correct]="showAnswer && option.correct"
+        [class.incorrect]="showAnswer && !option.correct && selectedOption === option"
+        (click)="selectOption(option)"
+      >
+        {{ option.text }}
+      </button>
+    </div>
 
     <div *ngIf="showAnswer">
-      <p [ngClass]="{'correct': isCorrect, 'incorrect': !isCorrect}">
+      <p [ngClass]="{ correct: isCorrect, incorrect: !isCorrect }">
         {{ isCorrect ? '¡Correcto!' : 'Incorrecto' }}
       </p>
-      <ion-button (click)="nextQuestion()">Siguiente</ion-button>
+      <ion-button expand="full" color="primary" (click)="nextQuestion()">Siguiente</ion-button>
+    </div>
+
+    <div class="quiz-end" *ngIf="quizFinished">
+      <h2>¡Quiz Terminado!</h2>
+      <p>Puntaje final: {{ score }}/{{ questions.length }}</p>
+      <ion-button expand="full" color="success" (click)="restartQuiz()">Reiniciar Quiz</ion-button>
     </div>
   </div>
-
-  <ng-template #quizEnd>
-    <div class="quiz-end">
-      <h2>¡Quiz Terminado!</h2>
-      <p>Puntaje: {{ score }}/{{ questions.length }}</p>
-      <ion-button (click)="restartQuiz()">Reiniciar Quiz</ion-button>
-    </div>
-  </ng-template>
 </ion-content>

@@ -1,0 +1,30 @@
+<ion-content class="login-page">
+  <div class="form-container">
+    <div class="header">
+      <h1>Iniciar Sesión</h1>
+    </div>
+    <form (ngSubmit)="login()">
+      <ion-item class="input-container">
+        <ion-label position="stacked">Nombre de Usuario</ion-label>
+        <ion-input
+          [(ngModel)]="username"
+          name="username"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item class="input-container">
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input
+          [(ngModel)]="password"
+          name="password"
+          type="password"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-button expand="block" class="login-button" type="submit">Iniciar Sesión</ion-button>
+    </form>
+    <p class="register-text">
+      ¿No tienes cuenta? <a routerLink="/register" class="register-link">Regístrate aquí</a>
+    </p>
+  </div>
+</ion-content>

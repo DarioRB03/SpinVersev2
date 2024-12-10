@@ -1,15 +1,13 @@
 <ion-content>
-  <ion-list *ngIf="!selectedVideoId">
-    <ion-item *ngFor="let video of videos" (click)="playVideo(video.id.videoId)">
-      <ion-thumbnail slot="start">
-        <img [src]="video.snippet.thumbnails.default.url" />
-      </ion-thumbnail>
-      <ion-label>
-        <h2>{{ video.snippet.title }}</h2>
-        <p>{{ video.snippet.description }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <div class="videos-container">
+    <div *ngFor="let video of videos" class="video-card" (click)="playVideo(video.id.videoId)">
+      <img [src]="video.snippet.thumbnails.medium.url" alt="Video Thumbnail" class="video-thumbnail" />
+      <div class="video-info">
+        <h3 class="video-title">{{ video.snippet.title }}</h3>
+        <p class="video-description">{{ video.snippet.description }}</p>
+      </div>
+    </div>
+  </div>
 
   <!-- Componente de reproducción en pantalla completa -->
   <app-video-player

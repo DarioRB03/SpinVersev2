@@ -1,0 +1,25 @@
+<ion-content scroll-y="false">
+  <div class="game-container">
+    <h2>Rompecabezas</h2>
+    <p>Ordena las piezas antes de que se acabe el tiempo.</p>
+    <div class="timer">Tiempo restante: {{ timeLeft }} segundos</div>
+
+    <div class="puzzle-board">
+      <div
+        *ngFor="let piece of shuffledPieces; let i = index"
+        class="puzzle-piece"
+        [ngClass]="{ correct: piece.position === i }"
+        (click)="movePiece(i)"
+      >
+      {{ piece?.value || '' }}
+      </div>
+    </div>
+
+    <div class="game-over" *ngIf="gameOver">
+      <p>{{ winMessage }}</p>
+      <ion-button expand="full" color="primary" (click)="restartGame()">
+        Jugar de nuevo
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

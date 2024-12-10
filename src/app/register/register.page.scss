@@ -1,0 +1,69 @@
+.register-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ocupa toda la pantalla */
+  padding: 0; /* Elimina cualquier espacio adicional */
+  margin: 0; /* Elimina márgenes */
+
+  .form-container {
+    background: #1a1a1a; /* Fondo para el formulario */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(255, 255, 0, 0.2);
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    align-content: center;
+
+    .header {
+      margin-bottom: 20px;
+
+      h1 {
+        color: #ffeb3b; /* Amarillo coherente con tu app */
+        font-size: 1.8rem;
+        margin: 0;
+      }
+    }
+
+    .input-container {
+      margin-bottom: 15px;
+
+      ion-label {
+        color: #ffffff; /* Texto blanco */
+        font-size: 1rem;
+        margin-bottom: 5px;
+      }
+
+      ion-input {
+        --background: #333; /* Fondo del input */
+        --color: #fff; /* Texto del input */
+        --placeholder-color: #666;
+        border: 1px solid #ffeb3b;
+        border-radius: 8px;
+        padding: 10px;
+      }
+    }
+
+    .register-button {
+      --background: #ffeb3b; /* Amarillo para el botón */
+      --color: #000; /* Texto negro */
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    .login-text {
+      margin-top: 20px;
+      color: #999; /* Texto gris */
+      font-size: 0.9rem;
+
+      .login-link {
+        color: #ffeb3b; /* Amarillo para el enlace */
+        font-weight: bold;
+        text-decoration: none;
+      }
+    }
+  }
+}

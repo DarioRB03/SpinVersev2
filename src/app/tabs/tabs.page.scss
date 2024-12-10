@@ -1,38 +1,92 @@
 
 ion-tab-bar {
     --background: var(--ion-background-color);
-    --color: var(--ion-text-color);
-    --color-selected: var(--primary-color);
-    height: 130px; 
+    --color: #cccccc; 
+    --color-selected: #ffeb3b;
+    height: 140px; 
     position: relative;
+    border: none !important;
   }
-  
+
   .central-button-wrapper {
     position: absolute;
-    top: -60px; 
+    top: -60px; /* Mueve el botón hacia arriba */
     left: 50%;
     transform: translateX(-50%);
-    z-index: 10;
+    z-index: 10; /* Asegura que esté sobre los demás tabs */
   }
   
+
   .central-button {
-    background-color: yellow; 
-    color: #000000; 
+    background-color: #ffeb3b;  /* Color amarillo */
     border-radius: 50%;
-    width: 70px; 
+    width: 70px;
     height: 70px;
+    box-shadow: 0 4px 10px rgba(255, 255, 0, 0.5); /* Sombra */
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    border: 3px solid var(--ion-background-color); 
+    font-size: 2rem;
+    color: #1a1a1a; /* Icono negro */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+
+
+  .central-button:hover {
+    transform: scale(1.1); /* Efecto al pasar el cursor */
+    box-shadow: 0 6px 15px rgba(255, 255, 0, 0.7); /* Sombra más intensa */
+  }
+  
+  .central-button:active {
+    background-color: #e6c200; /* Cambia ligeramente el fondo al presionar */
+    box-shadow: 0 4px 8px rgba(255, 200, 0, 0.5); /* Sombra más suave */
+    transform: scale(0.95); /* Efecto de presionado */
   }
   
   .central-button ion-icon {
-    font-size: 2rem; 
+    font-size: 2.5rem; /* Tamaño del icono */
+    color: #1a1a1a; /* Asegura que el icono sea visible en todos los estados */
+    transition: color 0.2s ease;
   }
   
-  ion-tab-button{
-    margin-top: 60px;
+  .central-button:active ion-icon {
+    color: #000; /* Asegura que el icono sea visible incluso al hacer clic */
   }
+
+  ion-tab-button {
+    margin-top: 65px; /* Espaciado para alinear con el botón central */
+    color: #cccccc; /* Color gris claro para íconos no seleccionados */
+  
+    &.tab-selected {
+      color: #ffeb3b; /* Amarillo vibrante para el tab seleccionado */
+    }
+  }
+  // .central-button-wrapper {
+  //   position: absolute;
+  //   top: -60px; 
+  //   left: 50%;
+  //   transform: translateX(-50%);
+  //   z-index: 10;
+  // }
+  
+  // .central-button {
+  //   background-color: yellow; 
+  //   color: #000000; 
+  //   border-radius: 50%;
+  //   width: 70px; 
+  //   height: 70px;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  //   border: 3px solid var(--ion-background-color); 
+  // }
+  
+  // .central-button ion-icon {
+  //   font-size: 2rem; 
+  // }
+  
+  // ion-tab-button{
+  //   margin-top: 60px;
+  // }
   

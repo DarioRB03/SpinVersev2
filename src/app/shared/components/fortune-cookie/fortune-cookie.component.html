@@ -1,0 +1,19 @@
+<ion-content scroll-y="false">
+  <div class="fortune-cookie-card">
+    <!-- Contenedor del icono giratorio -->
+    <div class="icon-container">
+      <ion-icon class="rotating-icon" name="star-outline"></ion-icon>
+    </div>
+
+    <!-- Contenido de la galleta de la suerte -->
+    <div class="fortune-cookie-content">
+      <h2>Tu Fortuna</h2>
+      <p class="fortune-message">{{ message }}</p>
+    </div>
+
+    <!-- Botón de cerrar -->
+    <ion-button expand="full" color="tertiary" class="close-button" (click)="closeCookie()">
+      Cerrar
+    </ion-button>
+  </div>
+</ion-content>

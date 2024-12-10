@@ -1,0 +1,48 @@
+.game-container {
+    text-align: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Centrado vertical */
+  }
+  
+  .timer {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    color: #4caf50;
+  }
+  
+  .puzzle-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Rompecabezas 3x3 */
+    gap: 10px; /* Espaciado entre las piezas */
+    justify-content: center;
+    margin: 20px auto;
+    max-width: 320px; /* Tamaño máximo del tablero */
+  }
+  
+  .puzzle-piece {
+    background-color: #1a1a1a;
+    color: #fff;
+    border-radius: 5px;
+    height: 100px; /* Aumenta la altura de las piezas */
+    width: 100px; /* Aumenta el ancho de las piezas */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem; /* Aumenta el tamaño del texto */
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .puzzle-piece.correct {
+    background-color: #4caf50;
+  }
+  
+  .game-over {
+    margin-top: 20px;
+  }
+  

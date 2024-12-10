@@ -9,17 +9,17 @@ export class MemoryPage {
   colors: string[] = ['red', 'blue', 'green', 'yellow'];
   sequence: string[] = [];
   playerSequence: string[] = [];
+  currentHighlight: string | null = null; // Nueva propiedad para resaltar el color actual
   isShowingSequence: boolean = false;
   gameOver: boolean = false;
   score: number = 0;
-  message: string = '';
 
   startGame() {
     this.score = 0;
     this.sequence = [];
     this.playerSequence = [];
     this.gameOver = false;
-    this.message = 'Observa la secuencia...';
+    this.currentHighlight = null;
     this.nextRound();
   }
 
@@ -29,7 +29,6 @@ export class MemoryPage {
     this.isShowingSequence = true;
     this.showSequence().then(() => {
       this.isShowingSequence = false;
-      this.message = 'Tu turno: toca los colores en el orden correcto';
     });
   }
 
@@ -44,16 +43,12 @@ export class MemoryPage {
   }
 
   highlightColor(color: string) {
-    return new Promise<void>(resolve => {
-      const index = this.colors.indexOf(color);
-      const button = document.querySelectorAll('button')[index];
-      if (button) {
-        button.classList.add('highlight');
-        setTimeout(() => {
-          button.classList.remove('highlight');
-          setTimeout(() => resolve(), 300);
-        }, 700);
-      }
+    return new Promise<void>((resolve) => {
+      this.currentHighlight = color; // Resaltar el color actual
+      setTimeout(() => {
+        this.currentHighlight = null; // Quitar el resaltado
+        setTimeout(() => resolve(), 300);
+      }, 700);
     });
   }
 
@@ -65,13 +60,11 @@ export class MemoryPage {
 
     if (this.playerSequence[currentIndex] !== this.sequence[currentIndex]) {
       this.gameOver = true;
-      this.message = '¡Juego terminado! Fallaste la secuencia';
       return;
     }
 
     if (this.playerSequence.length === this.sequence.length) {
       this.score++;
-      this.message = `¡Correcto! Puntuación: ${this.score}`;
       setTimeout(() => this.nextRound(), 1000);
     }
   }
