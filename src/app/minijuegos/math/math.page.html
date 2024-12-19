@@ -15,14 +15,15 @@
       class="answer-input">
     </ion-input>
 
-    <ion-button expand="full" color="primary" (click)="checkAnswer()">Comprobar</ion-button>
+    <ion-button expand="block" color="success" (click)="checkAnswer()">Comprobar</ion-button>
 
     <p>Puntuación: {{ score }}</p>
 
     <div class="game-over" *ngIf="gameOver">
       <h2>¡Juego terminado!</h2>
       <p>Tu puntuación final es: {{ score }}</p>
-      <ion-button expand="full" color="success" (click)="startGame()">Jugar de nuevo</ion-button>
+      <p>Monedas ganadas: {{ coinsEarned }}</p>
+      <ion-button expand="block" color="success" (click)="startGame()">Jugar de nuevo</ion-button>
     </div>
   </div>
 </ion-content>

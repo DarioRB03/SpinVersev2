@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Centrado vertical */
+  height: 100vh; 
 }
 
 .timer {
@@ -22,7 +22,7 @@
   margin: 20px auto;
   border-radius: 15px;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-  overflow: hidden; /* Asegura que el objetivo no se salga */
+  overflow: hidden;
 }
 
 .target {
@@ -34,7 +34,7 @@
 }
 
 .game-over {
-  margin-top: 20px;
+  margin-top: -20px;
 }
 
 ion-button {

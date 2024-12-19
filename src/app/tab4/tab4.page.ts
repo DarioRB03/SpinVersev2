@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FirestoreService } from '../core/services/firestore.service'; 
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
-// import { FirestoreService } from 'src/app/core/services/firestore.service'
 
 @Component({
   selector: 'app-tab4',
@@ -9,24 +10,56 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Tab4Page implements OnInit {
 
-  nombre: string = 'Dario';
-  email: string = 'usuario@example.com';
-  spinsLeft: number = 3;
+  userId: string = ''; 
+  nombre: string = ''; 
+  email: string = ''; 
+  spinsLeft: number = 0; 
   updateMessage: string = '';
+  purchasedItems: any[] = []; // Artículos comprados
 
-  constructor() { }
+  constructor(
+    private firestoreService: FirestoreService,
+    private auth: AngularFireAuth
+  ) {}
 
   ngOnInit() {
-    console.log('Perfil page loaded');
+    this.auth.currentUser.then((user) => {
+      if (user) {
+        this.userId = user.uid;
+        this.loadUserProfile();
+        this.loadPurchasedItems();
+      }
+    });
   }
 
-  // updateProfile() {
-  //   this.firestoreService.updateUserProfile(this.nombre, this.email).then(() => {
-  //     this.updateMessage = 'Perfil actualizado correctamente';
-  //     setTimeout(() => {
-  //       this.updateMessage = '';
-  //     }, 3000); 
-  //   });
-  // }
+  loadUserProfile() {
+    this.firestoreService.getUserData(this.userId).subscribe((data: any) => {
+      if (data) {
+        this.nombre = data.username || 'Usuario Anónimo';
+        this.email = data.email || '';
+        this.spinsLeft = data.spins || 0;
+      }
+    });
+  }
+
+  loadPurchasedItems() {
+    this.firestoreService.getUserData(this.userId).subscribe((data: any) => {
+      this.purchasedItems = data?.purchasedItems || []; // Cargar artículos comprados
+    });
+  }
+
+  // Actualiza los datos del usuario en Firestore
+  updateProfile() {
+    const updatedData = {
+      username: this.nombre,
+      email: this.email,
+    };
+    this.firestoreService.updateUserProfile(this.userId, updatedData).then(() => {
+      this.updateMessage = 'Perfil actualizado correctamente';
+      setTimeout(() => {
+        this.updateMessage = '';
+      }, 3000);
+    });
+  }
 
 }

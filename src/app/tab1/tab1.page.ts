@@ -21,6 +21,7 @@ export class Tab1Page {
   rewardFrameImage: string = ''; // Imagen del marco ganado
   showProfileFrameReward: boolean = false;
   showCouponReward: boolean = false; 
+  userCoins: number = 0;
 
   // Recompensas de la ruleta
   recompensas = [
@@ -33,11 +34,16 @@ export class Tab1Page {
 
   // Mensajes para la galletita de la suerte
   fortuneMessages = [
-    '¡Hoy es tu día de suerte!',
-    'La persistencia vence a la resistencia.',
-    'Una gran oportunidad se aproxima.',
-    'Sigue jugando, la fortuna te sonríe.',
-    'Confía en el proceso, el éxito llegará.',
+    'El éxito está más cerca de lo que crees, solo da un paso más.',
+    'Hoy es un buen día para comenzar algo nuevo.',
+    'Nunca subestimes el poder de tus sueños; son el mapa de tu destino.',
+    'El esfuerzo que haces hoy será tu recompensa mañana.',
+    '¡Hoy es tu día de suerte! Pero cuidado con las esquinas…',
+    'Tu próxima comida será deliciosa. ¡Eso seguro!',
+    'A veces, las respuestas que buscas están dentro de ti.',
+    'El presente es un regalo, por eso se llama ahora.',
+    'La paciencia es una virtud… pero el café ayuda más rápido.',
+    'Hoy no será el mejor día de tu vida, pero al menos no es lunes.'
   ];
 
   constructor(
@@ -58,7 +64,9 @@ export class Tab1Page {
   loadUserSpins() {
     this.firestoreService.getUserData(this.userId).subscribe((data: any) => {
       this.spinsLeft = data?.spins || 0;
+      this.userCoins = data?.coins || 0; 
       console.log(`Tiradas restantes cargadas: ${this.spinsLeft}`);
+      console.log(`Monedas actuales: ${this.userCoins}`);
     });
   }
 
@@ -97,6 +105,7 @@ export class Tab1Page {
         this.rewardCoins = recompensaFinal.cantidad || 0; // Monedas ganadas
         this.spinsLeft -= 1;
         this.showCoinReward = true; // Mostrar el componente CoinReward
+        await this.firestoreService.updateUserCoins(this.userId, this.rewardCoins);
       } else if (recompensaFinal.nombre === 'Marcos para Perfil') {
         this.rewardFrameImage = 'https://via.placeholder.com/100x100?text=Marco';
         this.spinsLeft -= 1;

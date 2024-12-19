@@ -42,4 +42,15 @@ export class TiendaPage implements OnInit {
       console.log('Artículos de la tienda:', this.storeItems);
     });
   }
+
+  buyItem(item: any) {
+    this.firestoreService
+      .purchaseItem(this.userId, item, this.userCoins)
+      .then(() => {
+        alert(`Has comprado ${item.name} con éxito`);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
 }

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map } from 'rxjs';
+import firebase from 'firebase/compat/app'; // Importa Firebase
+
 
 @Injectable({
   providedIn: 'root',
@@ -100,5 +102,20 @@ export class FirestoreService {
       });
   }
   
-  
+
+  updateUserProfile(userId: string, updatedData: { username: string; email: string }) {
+    return this.firestore.collection('users').doc(userId).update(updatedData);
+  }
+
+  purchaseItem(userId: string, item: any, userCoins: number) {
+    if (userCoins < item.price) {
+      return Promise.reject('No tienes suficientes monedas');
+    }
+
+    return this.firestore.collection('users').doc(userId).update({
+      coins: userCoins - item.price,
+      purchasedItems: firebase.firestore.FieldValue.arrayUnion(item),
+    });
+  }
+
 }

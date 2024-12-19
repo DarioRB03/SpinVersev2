@@ -17,7 +17,8 @@
 
     <div class="game-over" *ngIf="gameOver">
       <p>{{ winMessage }}</p>
-      <ion-button expand="full" color="primary" (click)="restartGame()">
+      <p>Monedas ganadas: {{ coinsEarned }}</p>
+      <ion-button expand="block" color="success" (click)="restartGame()">
         Jugar de nuevo
       </ion-button>
     </div>

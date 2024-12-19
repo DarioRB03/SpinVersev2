@@ -17,12 +17,13 @@
     <div class="game-over" *ngIf="gameOver">
       <h2>¡Tiempo terminado!</h2>
       <p>Puntaje final: {{ score }}</p>
-      <ion-button expand="full" color="primary" (click)="resetGame()">
+      <p>Monedas ganadas: {{ coinsEarned }}</p>
+      <ion-button expand="block" color="success" (click)="resetGame()">
         Reiniciar Juego
       </ion-button>
     </div>
 
-    <ion-button *ngIf="!gameStarted && !gameOver" expand="full" color="success" (click)="startGame()">
+    <ion-button *ngIf="!gameStarted && !gameOver" expand="block" color="success" (click)="startGame()">
       INICIAR JUEGO
     </ion-button>
   </div>

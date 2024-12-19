@@ -1,4 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { FirestoreService } from 'src/app/core/services/firestore.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+
 
 @Component({
   selector: 'app-tap',
@@ -18,6 +21,19 @@ export class TapPage implements OnInit, OnDestroy {
 
   timeLeft: number = 30;
   targetDelay: number = 1200;
+  coinsEarned: number = 0; 
+  userId: string | null = null; 
+
+  constructor(
+    private firestoreService: FirestoreService,
+    private auth: AngularFireAuth
+  ) {
+    this.auth.currentUser.then(user => {
+      if (user) {
+        this.userId = user.uid;
+      }
+    });
+  }
 
   ngOnInit() {}
 
@@ -30,6 +46,7 @@ export class TapPage implements OnInit, OnDestroy {
     this.gameStarted = true;
     this.gameOver = false;
     this.score = 0;
+    this.coinsEarned = 0;
     this.timeLeft = 30;
     this.targetDelay = 1200;
 
@@ -66,7 +83,7 @@ export class TapPage implements OnInit, OnDestroy {
   positionTarget() {
     if (this.tapContainer && this.tapContainer.nativeElement) {
       const container = this.tapContainer.nativeElement.getBoundingClientRect();
-      const maxX = container.width - 50; // Tamaño del objetivo
+      const maxX = container.width - 50; 
       const maxY = container.height - 50;
 
       this.targetPosition.x = Math.floor(Math.random() * maxX);
@@ -77,6 +94,7 @@ export class TapPage implements OnInit, OnDestroy {
   hitTarget() {
     if (this.showTarget) {
       this.score += 1;
+      this.addCoins(1);
       this.showTarget = false;
       this.nextTarget();
     }
@@ -93,5 +111,16 @@ export class TapPage implements OnInit, OnDestroy {
   resetGame() {
     this.gameOver = false;
     this.startGame();
+  }
+
+  addCoins(coins: number) {
+    if (this.userId) {
+      this.firestoreService.updateUserCoins(this.userId, coins).then(() => {
+        this.coinsEarned += coins; 
+        console.log(`${coins} monedas añadidas al usuario.`);
+      }).catch(error => {
+        console.error('Error al añadir monedas:', error);
+      });
+    }
   }
 }

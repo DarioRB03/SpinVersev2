@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FirestoreService } from 'src/app/core/services/firestore.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-puzzle-game',
@@ -9,9 +11,22 @@ export class PuzzleGamePage implements OnInit {
 
   pieces: any[] = []; // Piezas del rompecabezas
   shuffledPieces: any[] = []; // Piezas mezcladas
-  timeLeft: number = 60; // Tiempo en segundos
-  gameOver: boolean = false; // Indica si el juego terminó
-  winMessage: string = ''; // Mensaje de victoria o derrota
+  timeLeft: number = 60; 
+  gameOver: boolean = false; 
+  winMessage: string = ''; 
+  coinsEarned: number = 0; 
+  userId: string | null = null;
+
+  constructor(
+    private firestoreService: FirestoreService,
+    private auth: AngularFireAuth
+  ) {
+    this.auth.currentUser.then((user) => {
+      if (user) {
+        this.userId = user.uid;
+      }
+    });
+  }
 
   ngOnInit() {
     this.initializeGame();
@@ -31,7 +46,7 @@ export class PuzzleGamePage implements OnInit {
     this.timeLeft = 60; // Tiempo inicial
     this.gameOver = false; // Estado del juego
     this.winMessage = ''; // Mensaje de victoria o derrota
-  
+    this.coinsEarned = 0; 
     this.startTimer(); // Iniciar el temporizador
   }
   
@@ -91,15 +106,46 @@ export class PuzzleGamePage implements OnInit {
       (piece, index) => piece.value === index + 1 || (piece.value === null && index === 8)
     );
   }
+
+  // Cuenta las piezas correctamente colocadas
+  countCorrectPieces() {
+    return this.shuffledPieces.filter(
+      (piece, index) =>
+        piece.value === index + 1 || (piece.value === null && index === 8)
+    ).length;
+  }
   
   // Termina el juego
   endGame(isWin: boolean) {
     this.gameOver = true;
-    this.winMessage = isWin ? '¡Felicidades! Has resuelto el rompecabezas.' : 'Se acabó el tiempo.';
+
+    const correctPieces = this.countCorrectPieces();
+    const coins = correctPieces; // 1 moneda por cada pieza correctamente colocada
+    this.coinsEarned = coins;
+
+    if (isWin) {
+      this.winMessage = '¡Felicidades! Has resuelto el rompecabezas.';
+    } else {
+      this.winMessage = 'Se acabó el tiempo.';
+    }
+
+    this.addCoins(coins); 
+  }
+
+  addCoins(coins: number) {
+    if (this.userId) {
+      this.firestoreService.updateUserCoins(this.userId, coins).then(() => {
+        console.log(`${coins} monedas añadidas al usuario.`);
+      }).catch(error => {
+        console.error('Error al añadir monedas:', error);
+      });
+    }
   }
 
   // Reinicia el juego
   restartGame() {
     this.initializeGame();
   }
+
+
 }

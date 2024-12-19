@@ -10,7 +10,7 @@
 
     <ion-button 
       expand="block" 
-      color="primary" 
+      color="success" 
       [disabled]="timer === 0 || !gameStarted" 
       (click)="countClick()">
       ¡Clic!
@@ -24,10 +24,11 @@
       Empezar
     </ion-button>
 
-    <div class="game-over" *ngIf="timer === 0 && gameStarted">
+    <div class="game-over" *ngIf="timer === 0 && !gameStarted">
       <h2>¡Juego terminado!</h2>
       <p>Total de clics: {{ clickCount }}</p>
-      <ion-button expand="full" color="success" (click)="startGame()">Jugar de nuevo</ion-button>
+      <p>Monedas ganadas: {{ coinsEarned }}</p>
+      <ion-button expand="block" color="success" (click)="startGame()">Jugar de nuevo</ion-button>
     </div>
   </div>
 </ion-content>

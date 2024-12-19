@@ -1,4 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FirestoreService } from 'src/app/core/services/firestore.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-quiz',
@@ -107,6 +109,20 @@ export class QuizPage implements OnInit, OnDestroy {
   timeLeft = 10;
   timerInterval: any;
   quizFinished = false;
+  coinsEarned = 0;
+  userId: string | null = null;
+
+  constructor(
+    private firestoreService: FirestoreService,
+    private auth: AngularFireAuth
+  ) {
+    this.auth.currentUser.then(user => {
+      if (user) {
+        this.userId = user.uid;
+      }
+    });
+  }
+
 
   ngOnInit() {
     this.startTimer();
@@ -133,6 +149,7 @@ export class QuizPage implements OnInit, OnDestroy {
 
     if (this.isCorrect) {
       this.score++;
+      this.addCoins(1);
     }
   }
 
@@ -158,6 +175,18 @@ export class QuizPage implements OnInit, OnDestroy {
     this.selectedOption = null;
     this.timeLeft = 10;
     this.quizFinished = false;
+    this.coinsEarned = 0;
     this.startTimer();
+  }
+
+  addCoins(coins: number) {
+    if (this.userId) {
+      this.firestoreService.updateUserCoins(this.userId, coins).then(() => {
+        this.coinsEarned += coins; 
+        console.log(`${coins} monedas añadidas al usuario.`);
+      }).catch(error => {
+        console.error('Error al añadir monedas:', error);
+      });
+    }
   }
 }

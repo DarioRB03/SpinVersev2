@@ -21,13 +21,14 @@
       <p [ngClass]="{ correct: isCorrect, incorrect: !isCorrect }">
         {{ isCorrect ? '¡Correcto!' : 'Incorrecto' }}
       </p>
-      <ion-button expand="full" color="primary" (click)="nextQuestion()">Siguiente</ion-button>
+      <ion-button expand="block" color="success" (click)="nextQuestion()">Siguiente</ion-button>
     </div>
 
     <div class="quiz-end" *ngIf="quizFinished">
       <h2>¡Quiz Terminado!</h2>
       <p>Puntaje final: {{ score }}/{{ questions.length }}</p>
-      <ion-button expand="full" color="success" (click)="restartQuiz()">Reiniciar Quiz</ion-button>
+      <p>Monedas ganadas: {{ coinsEarned }}</p>
+      <ion-button expand="block" color="success" (click)="restartQuiz()">Reiniciar Quiz</ion-button>
     </div>
   </div>
 </ion-content>
